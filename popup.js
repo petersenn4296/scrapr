@@ -1,7 +1,7 @@
 document.getElementById("getSource").addEventListener('click', () => {
     console.log("Popup DOM fully loaded and parsed");
 
-    function modifyDOM() {
+    function searchDOMForRecipe() {
         const recipe_selectors = [
             '.recipe-callout',
             '.tasty-recipes',
@@ -18,10 +18,10 @@ document.getElementById("getSource").addEventListener('click', () => {
 
         let recipeInfo
         recipe_selectors.every(s => {
-            let original = document.querySelector(s);
-            if (original){
+            let recipeContainerInDOM = document.querySelector(s);
+            if (recipeContainerInDOM){
                 // it worked, stop iterating through recipe_selectors
-                recipeInfo = original
+                recipeInfo = recipeContainerInDOM
                 return false;
             }
             return true;
@@ -30,9 +30,8 @@ document.getElementById("getSource").addEventListener('click', () => {
         console.log('recipeInfo', recipeInfo);
     }
 
-    //We have permission to access the activeTab, so we can call chrome.tabs.executeScript:
     chrome.tabs.executeScript({
-        code: '(' + modifyDOM + ')();' //argument here is a string but function.toString() returns function's code
+        code: '(' + searchDOMForRecipe + ')();' //argument here is a string but function.toString() returns function's code
     }, (results) => {
         //Here we have just the innerHTML and not DOM structure
         console.log('Popup script:')
