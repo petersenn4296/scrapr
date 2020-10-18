@@ -1,0 +1,19 @@
+{
+    "name": "Scrapr",
+    "version": "1.0",
+    "description": "Add any recipe to your account for later!",
+    "manifest_version": 2,
+
+    "icons": {
+        "128": "scrapricon.png"
+    },
+
+    "browser_action": {
+      "default_title": "You want all your recipes in one place? Here you go!",
+      "default_popup": "popup.html"
+    },
+
+    "permissions": [
+      "tabs", "activeTab", "<all_urls>"
+    ]
+  }
