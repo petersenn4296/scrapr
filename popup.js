@@ -1,5 +1,4 @@
 document.getElementById("getSource").addEventListener('click', () => {
-    console.log("Popup DOM fully loaded and parsed");
 
     function searchDOMForRecipe() {
         const recipe_selectors = [
@@ -16,24 +15,38 @@ document.getElementById("getSource").addEventListener('click', () => {
             'div[itemtype="https://schema.org/Recipe"]',
         ]
 
-        let recipeInfo
+        let notes
+        let ingredients
+        let instructions 
         recipe_selectors.every(s => {
             let recipeContainerInDOM = document.querySelector(s);
-            if (recipeContainerInDOM){
-                // it worked, stop iterating through recipe_selectors
-                recipeInfo = recipeContainerInDOM
+
+            //word press
+            if (recipeContainerInDOM && s === '.wprm-recipe-container'){
+                // recipe content found, set notes, ingredients, and instructions
+                notes = recipeContainerInDOM.querySelector('.wprm-recipe-notes-container')
+                ingredients = recipeContainerInDOM.querySelectorAll('.wprm-recipe-ingredient-group')
+                instructions = recipeContainerInDOM.querySelectorAll('.wprm-recipe-instruction-group')
+
+                // recipe content found, stop iterating through recipe_selectors
                 return false;
             }
+
+            //TODO - set recipe data from other recipe sites
+
+            // recipe content NOT found, keep iterating through recipe_selectors
             return true;
         });
 
-        console.log('recipeInfo', recipeInfo);
+        console.log('notes', notes);
+        console.log('ingredients', [...ingredients]);
+        console.log('instructions', [...instructions]);
+
     }
 
     chrome.tabs.executeScript({
         code: '(' + searchDOMForRecipe + ')();' //argument here is a string but function.toString() returns function's code
     }, (results) => {
-        //Here we have just the innerHTML and not DOM structure
         console.log('Popup script:')
         console.log(results[0]);
     });
