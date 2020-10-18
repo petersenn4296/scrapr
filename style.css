@@ -1,10 +1,10 @@
 body {
-  background-color: lightblue;
+  background-color: lightgray;
   height: 30px;
   width: 100px;
 }
 
-#getSource {
+#getRecipe {
   color: red;
   cursor: pointer;
   position: relative;
@@ -12,6 +12,15 @@ body {
   left: 57%;
   transform: translate(-50%, -50%);
 }
-#getSource:hover {
+#getRecipe:hover {
+  color: lightpink;
+}
+#seeRecipes {
   color: yellow;
+  cursor: pointer;
+  position: relative;
+  top: 75%;
+  left: 57%;
+  transform: translate(-50%, -50%);
+  margin-bottom: 20px;
 }

@@ -1,4 +1,4 @@
-document.getElementById("getSource").addEventListener('click', () => {
+document.getElementById("getRecipe").addEventListener('click', () => {
 
     function searchDOMForRecipe() {
         const recipe_selectors = [
@@ -33,11 +33,14 @@ document.getElementById("getSource").addEventListener('click', () => {
             }
 
             //tasty recipes --- (choosing chia)
-            if (recipeContainerInDOM && s === '.tasty-recipe'){
+            if (recipeContainerInDOM && s === '.tasty-recipes'){
+                console.log('tasty recipes');
+                console.log(recipeContainerInDOM);
+
                 // recipe content found, set notes, ingredients, and instructions
-                // notes = recipeContainerInDOM.querySelector('.wprm-recipe-notes-container')
-                // ingredients = recipeContainerInDOM.querySelectorAll('.wprm-recipe-ingredient-group')
-                // instructions = recipeContainerInDOM.querySelectorAll('.wprm-recipe-instruction-group')
+                notes = recipeContainerInDOM.querySelector('.tasty-recipes-notes')
+                ingredients = recipeContainerInDOM.querySelector('.tasty-recipes-ingredients')
+                instructions = recipeContainerInDOM.querySelector('.tasty-recipes-instructions')
 
                 // recipe content found, stop iterating through recipe_selectors
                 return false;
@@ -46,10 +49,9 @@ document.getElementById("getSource").addEventListener('click', () => {
             //recipe content(???) --- (avant garde)
             if (recipeContainerInDOM && s === '.recipe-content'){
                 // recipe content found, set notes, ingredients, and instructions
-                // notes = recipeContainerInDOM.querySelector('.wprm-recipe-notes-container')
-                // ingredients = recipeContainerInDOM.querySelectorAll('.wprm-recipe-ingredient-group')
-                // instructions = recipeContainerInDOM.querySelectorAll('.wprm-recipe-instruction-group')
-            
+                ingredients = recipeContainerInDOM.querySelector('.recipe-ingredients')
+                instructions = recipeContainerInDOM.querySelector('.recipe-method')
+                
                 // recipe content found, stop iterating through recipe_selectors
                 return false;
             }
@@ -61,8 +63,8 @@ document.getElementById("getSource").addEventListener('click', () => {
         });
 
         console.log('notes', notes);
-        console.log('ingredients', [...ingredients]);
-        console.log('instructions', [...instructions]);
+        console.log('ingredients', ingredients);
+        console.log('instructions', instructions);
 
     }
 
