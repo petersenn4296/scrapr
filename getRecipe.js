@@ -20,6 +20,7 @@ document.getElementById("getRecipe").addEventListener('click', () => {
         let notes
         let ingredients
         let instructions 
+        let name
         recipe_selectors.every(s => {
             console.log('ger')
             let recipeContainerInDOM = document.querySelector(s);
@@ -39,6 +40,9 @@ document.getElementById("getRecipe").addEventListener('click', () => {
                 //INSTRUCTIONS
                 const instructionsNode = recipeContainerInDOM.querySelector('.wprm-recipe-instruction-group')
                 instructions = instructionsNode.innerHTML
+
+                //NAME
+                name = recipeContainerInDOM.querySelector('.wprm-recipe-name')
 
                 // recipe content found, stop iterating through recipe_selectors
                 return false;
@@ -73,9 +77,10 @@ document.getElementById("getRecipe").addEventListener('click', () => {
             // recipe content NOT found, keep iterating through recipe_selectors
             return true;
         });
-         const recipeData = {
+
+        const recipeData = {
              url: window.location.href,
-             name: 'Test name',
+             name: name.innerText,
              ingredients,
              instructions,
              notes
