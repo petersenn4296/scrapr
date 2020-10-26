@@ -1,6 +1,6 @@
 document.getElementById("getRecipe").addEventListener('click', () => {
 
-    function searchDOMForRecipe() {
+    const searchDOMForRecipe = () => {
         const recipe_selectors = [
             //used
             '.wprm-recipe-container',
@@ -21,6 +21,7 @@ document.getElementById("getRecipe").addEventListener('click', () => {
         let ingredients
         let instructions 
         recipe_selectors.every(s => {
+            console.log('ger')
             let recipeContainerInDOM = document.querySelector(s);
             
             //word press --- (minalmist baker, hot for food)
@@ -72,12 +73,25 @@ document.getElementById("getRecipe").addEventListener('click', () => {
             // recipe content NOT found, keep iterating through recipe_selectors
             return true;
         });
+         const recipeData = {
+             url: window.location.href,
+             name: 'Test name',
+             ingredients,
+             instructions,
+             notes
+         }
+            
+         //Send notes, ingredients, instructions to API
+        const req = new XMLHttpRequest()
+        req.open('POST', 'http://localhost:6969/recipe/create', true)
+        req.setRequestHeader('Content-type', 'application/json')
+        req.send(JSON.stringify(recipeData))
 
-        console.log('notes', notes);
-        console.log('ingredients', ingredients);
-        console.log('instructions', instructions);
-
-        //Send notes, ingredients, instructions to API
+        req.onreadystatechange = function() { // Call a function when the state changes.
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                console.log("Got response 200!");
+            }
+        }
     }
 
     chrome.tabs.executeScript({
